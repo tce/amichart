@@ -1,5 +1,8 @@
 (ns amichart.core
-  (:use [incanter core charts io]))
+  (:use  [incanter core]
+          [incanter charts]
+          [incanter io]
+          [seesaw core]))
 
 (defn readAMIData
   "This function reads in a ami text data file and returns its data.
@@ -47,6 +50,13 @@
   [chart columnValues]
   (println (str "Adding " columnValues))
   (add-categories chart (colRange columnValues) columnValues))
+
+(defn addLines
+  "This function adds lines of data to an existing chart"
+  [chart namelist data]
+  (map #(addDataColumn chart (filterNaNs % data)) namelist)
+  )
+
 
 (defn showVars
   "This function takes a list of column names and graphs them"
